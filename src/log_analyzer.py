@@ -151,19 +151,19 @@ def main(config):
         logging.info("Can't find log files.")
         return
 
-    logging.info('Start parsing {}'.format(last_log_file))
-    log_records = parse_file(os.path.join(config['LOG_DIR'], last_log_file.filename),
-                             LOG_FORMAT,
-                             config['ERRORS_LIMIT'])
-
-    stats = calc_stats(log_records)
-
     report_filename = 'report-{}.html'.format(last_log_file.date.strftime("%Y.%m.%d"))
     report_filepath = os.path.join(config['REPORT_DIR'], report_filename)
 
     if os.path.isfile(report_filepath):
         logging.info('Report file already exist.')
         return
+
+    logging.info('Start parsing {}'.format(last_log_file))
+    log_records = parse_file(os.path.join(config['LOG_DIR'], last_log_file.filename),
+                             LOG_FORMAT,
+                             config['ERRORS_LIMIT'])
+
+    stats = calc_stats(log_records)
 
     make_report(report_filepath, stats, config['REPORT_SIZE'])
 
