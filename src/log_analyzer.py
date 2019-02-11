@@ -148,7 +148,7 @@ def main(config):
     last_log_file = get_last_log_file(config['LOG_DIR'])
 
     if not last_log_file:
-        logging.error("Can't find log files.")
+        logging.info("Can't find log files.")
         return
 
     logging.info('Start parsing {}'.format(last_log_file))
