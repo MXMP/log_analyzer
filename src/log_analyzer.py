@@ -189,12 +189,12 @@ if __name__ == "__main__":
     parser.add_argument('--config', help='Config file path')
     args = parser.parse_args()
 
-    logging.basicConfig(filename='log_analyzer.log',
+    config = load_config(args.config)
+
+    logging.basicConfig(filename=config.get('LOG_FILE', None),
                         format='[%(asctime)s] %(levelname).1s %(message)s',
                         datefmt='%Y.%m.%d %H:%M:%S',
-                        level=logging.DEBUG)
-
-    config = load_config(args.config)
+                        level=config.get('LOG_LEVEL', logging.INFO))
 
     try:
         main(config)
